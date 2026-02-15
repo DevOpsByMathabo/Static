@@ -1,6 +1,6 @@
 # WHY: Create the VPC 
 resource "aws_vpc" "static_vpc" {
-  cidr_block = "10.0.0.0/16" 
+  cidr_block = var.vpc_cidr
   
   tags = {
     Name = "static-vpc"
@@ -28,8 +28,8 @@ resource "aws_route_table" "static_public_rt" {
 # WHY: Create Public Subnet 1 (Zone A - For High Availability)
 resource "aws_subnet" "public_subnet_1" {
   vpc_id                  = aws_vpc.static_vpc.id
-  cidr_block              = "10.0.1.0/24"
-  availability_zone       = "af-south-1a" 
+  cidr_block              = var.subnet_1_cidr
+  availability_zone       = var.az_1 
   map_public_ip_on_launch = true 
 
   tags = {
@@ -40,8 +40,8 @@ resource "aws_subnet" "public_subnet_1" {
 # WHY: Create Public Subnet 2 (Zone B - The backup zone)
 resource "aws_subnet" "public_subnet_2" {
   vpc_id                  = aws_vpc.static_vpc.id
-  cidr_block              = "10.0.1.0/24" 
-  availability_zone       = "af-south-1b"
+  cidr_block              = var.subnet_2_cidr 
+  availability_zone       = var.az_2
   map_public_ip_on_launch = true
 
   tags = {
