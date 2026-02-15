@@ -35,3 +35,10 @@ variable "subnet_2_cidr" {
   type        = string
   default     = "10.0.2.0/24"
 }
+
+# --- Server Configuration ---
+variable "instance_type" {
+  description = "The type of EC2 instance to run (t3.micro)"
+  type        = string
+  default     = "t3.micro"
+}
