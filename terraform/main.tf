@@ -50,13 +50,13 @@ resource "aws_subnet" "public_subnet_2" {
 }
 
 # WHY: Connect Subnet 1 with the Route Table
-resource "aws_route_table_connection" "public_connect_1" {
+resource "aws_route_table_association" "public_connect_1" {
   subnet_id      = aws_subnet.public_subnet_1.id
   route_table_id = aws_route_table.static_public_rt.id
 }
 
 # WHY: Connect Subnet 2 with the Route Table
-resource "aws_route_table_connection" "public_connect_2" {
+resource "aws_route_table_association" "public_connect_2" {
   subnet_id      = aws_subnet.public_subnet_2.id
   route_table_id = aws_route_table.static_public_rt.id
 }
