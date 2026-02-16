@@ -1,7 +1,7 @@
 # WHY: Create the blueprint for the servers
 resource "aws_launch_template" "static_lt" {
   name_prefix   = "static-launch-template"
-  image_id      = "ami-0002a762b9a78536f" 
+  image_id      = data.aws_ami.ubuntu.id 
   instance_type = var.instance_type
 
   # WHY: Attach the security group so only the Load Balancer can talk to it

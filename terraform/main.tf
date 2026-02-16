@@ -1,3 +1,20 @@
+# WHY: Get the latest Ubuntu 24.04 AMI ID for Cape Town automatically.
+# I added this because hardcoding the ID caused "Invalid AMI" errors.
+data "aws_ami" "ubuntu" {
+  most_recent = true
+  owners      = ["099720109477"]
+
+  filter {
+    name   = "name"
+    values = ["ubuntu/images/hvm-ssd-gp3/ubuntu-noble-24.04-amd64-server-*"]
+  }
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+}
+
 # WHY: Create the VPC 
 resource "aws_vpc" "static_vpc" {
   cidr_block = var.vpc_cidr
