@@ -37,6 +37,12 @@ resource "aws_internet_gateway" "static_igw" {
 resource "aws_route_table" "static_public_rt" {
   vpc_id = aws_vpc.static_vpc.id
 
+  # WHY: Send all internet traffic (0.0.0.0/0) to the Internet Gateway
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.static_igw.id
+  }
+
   tags = {
     Name = "static-public-rt"
   }
