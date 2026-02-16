@@ -42,3 +42,22 @@ variable "instance_type" {
   type        = string
   default     = "t3.micro"
 }
+
+# --- Auto Scaling Group Configuration ---
+variable "asg_min_size" {
+  description = "Minimum number of servers to run"
+  type        = number
+  default     = 2
+}
+
+variable "asg_max_size" {
+  description = "Maximum number of servers to run"
+  type        = number
+  default     = 3
+}
+
+variable "asg_desired_capacity" {
+  description = "Ideal number of servers to run"
+  type        = number
+  default     = 2
+}
