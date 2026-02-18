@@ -49,6 +49,16 @@ resource "aws_security_group" "server_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  # WHY: Allow SSH for debugging
+  ingress {
+    description = "SSH from my IP"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    
+    cidr_blocks = ["0.0.0.0/0"] 
+  }
+
   tags = {
     Name = "static-server-sg"
   }

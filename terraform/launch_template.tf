@@ -4,15 +4,18 @@ resource "aws_launch_template" "static_lt" {
   image_id      = data.aws_ami.ubuntu.id 
   instance_type = var.instance_type
 
-  # WHY: Attach the IAM Instance Profile so the server can talk to CodeDeploy
+# WHY: Tell both servers to use the SSH key.
+  key_name = aws_key_pair.deployer.key_name
+
+# WHY: Attach the IAM Instance Profile so the server can talk to CodeDeploy
   iam_instance_profile {
     name = aws_iam_instance_profile.static_profile.name
   }
 
-  # WHY: Attach the security group so only the Load Balancer can talk to it
+# WHY: Attach the security group so only the Load Balancer can talk to it
   vpc_security_group_ids = [aws_security_group.server_sg.id]
 
-  # WHY: The startup script. Wait for system updates to finish, then install Nginx, then CodeDeploy.
+# WHY: The startup script. Wait for system updates to finish, then install Nginx, then CodeDeploy.
   user_data = base64encode(<<-EOF
               #!/bin/bash
               
@@ -53,7 +56,7 @@ resource "aws_launch_template" "static_lt" {
               EOF
   )
 
-  # WHY: Add tags to track costs later
+# WHY: Add tags to track costs later
   tag_specifications {
     resource_type = "instance"
     tags = {
